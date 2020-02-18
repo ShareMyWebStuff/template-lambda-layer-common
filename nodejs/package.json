@@ -1,0 +1,18 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm install && 7z a ../lambda-layer.zip -r ../nodejs",
+    "deploy": "aws lambda publish-layer-version --layer-name smt-layer --description 'Sharemytutoring layer' --license-info 'MIT' --compatible-runtimes nodejs10.x nodejs12.x --zip-file ../lambda-layer.zip "
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.18.1",
+    "validator": "^12.2.0"
+  }
+}
