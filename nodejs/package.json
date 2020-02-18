@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && 7z a ../lambda-layer.zip -r ../nodejs",
-    "deploy": "aws lambda publish-layer-version --layer-name smt-layer --description 'Sharemytutoring layer' --license-info 'MIT' --compatible-runtimes nodejs10.x nodejs12.x --zip-file ../lambda-layer.zip "
+    "build": "npm install && 7z a ../lambda-layer-common.zip -r ../nodejs",
+    "deploy": "aws lambda publish-layer-version --layer-name \"smt-common\" --description \"Sharemytutoring common layer\" --license-info \"MIT\" --compatible-runtimes nodejs10.x nodejs12.x --zip-file fileb://..\\lambda-layer-common.zip "
   },
   "author": "",
   "license": "ISC",
