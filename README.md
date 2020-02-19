@@ -4,7 +4,7 @@
 
 ## Introduction
 
-A lambda layer is where code common to lambda functions is placed. Each function can have upto 5 layers. Layers help to reduce the size of the lambda functions by placing code in the layers, this will also reduce the cold start time of the functions. The lowest layer will probably have code common to all functions (in this project database access), then at the next level I will have a layer that is specific only to tutors or a smaller subset of the project. In tutor lambda functions they will contain both layers in other functions they will only contain the lowest level (database).
+A lambda layer is where code common to lambda functions is placed. Each function can have upto 5 layers. Layers help to reduce the size of the lambda functions by placing code in the layers, this will also reduce the cold start time of the functions. The lowest layer will probably have code common to all functions (for instance database handling), then the next layer will be mor specific. 
 
 This layer contains the following
 bcryptjs
@@ -13,7 +13,7 @@ mysql
 validator
 services/db
 
-In order to deploy this layer you will need to build it and deploy it. 
+In order to deploy this layer you will need to build it and deploy it. When its deployed the layer is deployed with the next version number. This versioned layer will need to be added to the lambda functions.
 
 **Before doing this you will need to change the layer name to one you want in the package.json file.**
 

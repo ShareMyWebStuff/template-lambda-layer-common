@@ -12,11 +12,26 @@ const mysqlDB = () => {
     const DB_DATABASE = process.env.DB_DATABASE;
     const DB_PORT     = process.env.DB_PORT;
 
-    console.log (DB_HOST);
-    console.log (DB_USER);
-    console.log (DB_PASSWORD);
-    console.log (DB_DATABASE);
-    console.log (DB_PORT);
+    // 
+    // checkConnected
+    // 
+    // Check the database is connected too.
+    // 
+    // 
+    // 
+    function checkConnected () {
+
+        return new Promise (function (resolve, reject) {
+
+            // Get a connection from the mysql connection pool
+            pool.getConnection(function(err, connection) {
+                if (err) return reject({error: err}); 
+        
+                return resolve ( { msg: 'Connected.' });
+            });
+        });
+    }
+
 
     // 
     // Function : connectToDB
@@ -39,6 +54,7 @@ const mysqlDB = () => {
                     port            : DB_PORT
                 });
 
+                await checkConnected ();
             }
 
         } catch (err) {
@@ -48,7 +64,7 @@ const mysqlDB = () => {
     }
 
     // 
-    // Function : disconectDB
+    // Function : disconnectDB
     // 
     // Disconnect from the database and terminate the connection pool
     // 
@@ -176,26 +192,24 @@ const mysqlDB = () => {
 
             // Get a connection from the mysql connection pool
             pool.getConnection(function(err, connection) {
-
-                if (err) reject({error: err}); 
+                if (err) return reject({error: err}); 
         
                 // Use the connection
                 try {
                     connection.query(query, function (error, results, fields) {
-
                         // When done with the connection, release it.
                         connection.release();
 
                         if (error === null){
-                            resolve ( { error, results, fields });
+                            return resolve ( { error, results, fields });
                         } else {
-                            reject(error);
+                            return reject(error);
                         }
                     });
                     
                 } catch (error) {
-                    console.log (error);
-                    reject(error);
+                    console.error (error);
+                    return reject(error);
                 }
             });
         });
@@ -241,7 +255,7 @@ const mysqlDB = () => {
             return (returnDets);
 
         }catch (err) {
-            console.log (`selectData error ${err}`);
+            console.error (err);
 
             const userDets = {
                 error    : true,
