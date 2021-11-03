@@ -13,6 +13,6 @@
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "mysql": "^2.18.1",
-    "validator": "^12.2.0"
+    "validator": "^13.7.0"
   }
 }
